@@ -1,0 +1,55 @@
+	body {
+		font: 12px Verdana, Arial, sans-serif;
+	}
+	#menu {
+		position: relative;
+		font: 12px Verdana, Arial, sans-serif;
+		width: 732px;
+		height: 28px;
+	}
+	#menu a {
+		display: block;
+		color: #EEEEEE;
+		margin-top: 2px;
+		padding: 5px;
+		text-decoration: none;
+	}
+	#menu a:hover {
+		display: block;
+		color: #0099CC;
+	}
+	#menu ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	#menu ul li {
+		float: left;
+		width: 120px;
+		height: 26px;
+		text-align: center;
+		background-color: #2D2D2D;
+		border: 1px solid #2D2D2D;
+	}
+	#menu ul li:hover > ul {
+		display: block;
+	}
+	#menu ul li ul {
+		position: absolute;
+		display: none;	
+		margin-left: -2px;
+		z-index: 99;
+	}
+	#menu ul li ul li {
+		float: none;
+		width: 150px;
+		text-indent: 10px;
+		text-align: left;
+		background-color: #3C3C3C;		
+	}
+	#menu ul li ul li a {
+		display: block;
+	}
+	.separator {
+		border-right: 1px solid #666666;
+	}
