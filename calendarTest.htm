@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html debug="true">
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <script type="text/javascript" src="jQuery/js/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="jQuery/js/jquery-ui-1.10.2.custom.min.js"></script>
+  <script type="text/javascript" src="jQuery/js/jquery.ui.datepicker-zh-TW.js"></script>
+  <link rel="stylesheet" href="jQuery/themes/start/jquery-ui.css" />
+  <title></title>
+  <style>
+    div.ui-datepicker-header {
+      font-size: 12px;
+      font-family: georgia;
+    }
+    table.ui-datepicker-calendar {
+      font-size: 12px;
+      font-family: georgia;
+      font-style: italic;
+    }
+    div.ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+      width: 200px;
+    }
+    
+    .arrow-icon { background-image: url(jQuery/themes/start/images/ui-icons_fcd113_256x240.png); }
+    .arrowNone {
+      display: block;
+      width: 15px;
+      height: 15px;
+      border: 1px solid #DDDDDD;
+      background-position: -128px -16px;
+    }
+    .arrowDown {
+      display: block;
+      width: 15px;
+      height: 15px;
+      border: 1px solid #DDDDDD;
+      background-position: -64px -16px;
+    }
+    .arrowUp {
+      display: block;
+      width: 15px;
+      height: 15px;
+      border: 1px solid #DDDDDD;
+      background-position: 0 -16px;
+    }
+  </style>
+  </head>
+  <body>
+    <input type="text" id="dateTxt" />&nbsp;<button id="calendar" style="width: 20px; height: 20px;vertical-align: top;"></button>
+    <div id="date"></div> 
+    <br />
+    <br />
+    <span class="arrow-icon arrowNone"></span>
+    <br />
+    <span class="arrow-icon arrowDown"></span>
+    <br />
+    <span class="arrow-icon arrowUp"></span>
+    <br />
+    <div id='updownSale1'>
+      <input type='radio' name='onsale' id='N1' checked /><label for='N1'>上架1</label>
+      <input type='radio' name='onsale' id='Y1' /><label for='Y1'>下架1</label>
+    </div>
+    <div id='updownSale2'>
+      <input type='radio' name='test' id='N2' checked /><label for='N2'>上架2</label>
+      <input type='radio' name='test' id='Y2' /><label for='Y2'>下架2</label>
+    </div>
+  </body>
+</html>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("input[name='onsale']").button();
+    $("input[name='test']").button();
+    //$("input[name='Y2']").button();
+    //$("input[name='N2']").button();
+    $("div#updownSale1").buttonset();
+    $("div#updownSale2").buttonset();
+    
+    $("input[name='onsale']").each(function() {
+      $(this).click(function() {
+        alert($(this).next("label").text());  
+      });
+    });
+    
+    $("input[name='test']").each(function() {
+      $(this).click(function() {
+        alert($(this).next("label").text());  
+      });
+    });
+    /*
+    $("input[name='N2']").each(function() {
+      $(this).click(function() {
+        alert($(this).next("label").text());  
+      });
+    });
+    
+    $("input[name='Y2']").each(function() {
+      $(this).click(function() {
+        alert($(this).next("label").text());  
+      });
+    });
+    */
+                         
+    var date = $("#date").datepicker({
+      dateFormat: "yy-mm-dd",
+      //----週六與週日不允許選取----------------
+      beforeShowDay: function(date) {
+        var dayOfWeek = date.getDay();
+        if(dayOfWeek == 0 || dayOfWeek == 6)
+          return [false, "", "Lay off"];
+        else
+          return [true];
+      },
+      onSelect: function(dateText) {
+        $("#dateTxt").val(dateText);
+        $(this).toggle();  //輸入完成後,自動關閉日曆
+      }
+    });
+   
+    $(date).hide();
+
+    $("#calendar")
+      .button({
+        text: false,
+        icons: {
+          primary: "ui-icon-calendar"
+        }
+      })
+      .click(function(event) {
+        var pos = $("#calendar").position();
+        //----日曆顯示的地方在按鈕下方,且左側對齊-----------------------------
+        $(date).css({
+          position: "absolute",
+          top: (pos.top + 20),
+          left: pos.left
+        });
+        
+        //---切換日曆開 / 關:按一下按鈕以開啟日曆,再次按按鈕時,則關閉日曆
+        $(date).toggle();
+      });
+     
+  });  
+</script>
+

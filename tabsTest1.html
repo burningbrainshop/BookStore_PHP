@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<script type="text/javascript" src="jQuery/js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery-ui-1.10.2.custom.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery.tablegrid.js"></script>
+	<link rel="stylesheet" href="jQuery/themes/start/jquery-ui.css" />
+	<title></title>
+	<style>
+	</style>
+	</head>
+	<body>
+		<div id="codeTabs" style="width:500px; height:350px; padding:0; margin:0;">
+			<ul>
+					<li><a href="#set1">廠商代碼</a></li>
+					<li><a href="#set2">產品代碼</a></li>
+					<li><a href="#set3">訂單狀態代碼</a></li>
+			</ul>
+			<div id=set1 class="tab_content">
+				<table id="providerTB">
+					<thead>
+						<tr>
+							<th>&nbsp;</th>
+							<th name="id" class="noedit">ID</th>
+							<th name="codeName" class="add">Name</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div id=set2 class="tab_content">
+				<table id="productTB">
+					<thead>
+						<tr>
+							<th>&nbsp;</th>
+							<th name="id" class="noedit">ID</th>
+							<th name="codeName" class="add">Name</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div id=set3 class="tab_content">
+				<table id="orderTB">
+					<thead>
+						<tr>
+							<th>&nbsp;</th>
+							<th name="id" class="noedit">ID</th>
+							<th name="codeName" class="add">Name</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	(function($) {
+		$.fn.simpleTabs = function() {
+			return this.each(function() {
+				var $obj = $(this);
+				
+				if(!$obj.length)
+					return;
+				
+				$obj.find("div:first").each(function() {
+					$("#providerTB").tablegrid({ LOADDATA_PAGE: "provider_set.php" });
+				}).css("display", "block").siblings("div").css("display", "none");
+				
+				$("ul li a:first", $obj).addClass("current");
+				
+				$obj.find("ul li a").click(function() {
+					if(!$(this).hasClass("current"))
+					{
+						$(this).addClass("current").parent("li").siblings("li").find("a.current").removeClass("current");
+						
+						var index = $obj.find("ul > li").index($(this).parent("li"));
+						
+						if(index == 0)
+						{
+							$("#providerTB").tablegrid({ LOADDATA_PAGE: "provider_set.php" });
+						}
+						else if(index == 1)
+						{
+							$("#productTB").tablegrid({ LOADDATA_PAGE: "product_set.php" });
+						}
+						else if(index == 2)
+						{
+							$("#orderTB").tablegrid({ LOADDATA_PAGE: "order_set.php" });
+						}
+						
+						$($(this).attr("href")).css("display", "block").siblings("div.tab_content").css("display", "none");
+						
+						this.blur();
+						return false;
+					}
+				});
+				
+				//$obj.find("ul li:first").trigger("click");
+			});
+		};
+	})(jQuery);
+	$(document).ready(function() {
+		//jQuery('#codeTabs').tabs();
+		
+		//$("#codeTabs").find("ul > li").click(function() {
+			//var index = $(this).index();
+			//alert(index);
+		//});
+		
+		$("#codeTabs").simpleTabs();
+	});
+	
+	function beforeInsertTable(msg) {
+		alert(msg);
+	}
+
+	function insertTable() {
+		alert("資料已送出!");
+	}
+	
+	function beforeSave(msg) {
+		alert(msg);
+	}
+	
+	function showInfo(msg) {
+		alert(msg);
+	}
+</script>

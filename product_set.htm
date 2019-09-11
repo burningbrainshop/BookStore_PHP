@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="pragma" content="no-cache"> 
+	<script type="text/javascript" src="jQuery/js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery-ui-1.10.2.custom.min.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery.corner.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery.tablegrid.js"></script>
+	<link rel="stylesheet" href="jQuery/themes/black-tie/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/managerMenu.css" />
+	<title></title>
+	<style>
+	table#productTB {
+		border-collapse: collapse;
+		width: 100%;
+		padding: 0;
+		line-height: 20px;
+		background-color: #FFFFFF;
+	}
+	table#productTB th, table#productTB td {
+		border: 1px solid #AAAAAA;
+		padding: 3px;
+	}
+	table#productTB thead {
+		background-color: #D1DADE;
+		color: #003366;
+	}
+	table#productTB td.cell-edit {
+		background-color: #003366;
+	}
+	table#productTB tbody tr:hover {
+		background-color: #354158;
+		color: #fff;
+	}
+	table#productTB a {
+		color: #333;
+		text-decoration: none;
+	}
+	table#productTB tbody tr:hover a {
+		color: #fff;
+	}
+	table#productTB tbody tr:hover a:hover {
+		color: #fff;
+		text-decoration: underline;
+	}
+
+	div#codeTabs ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	div#codeTabs ul li {
+		float: left;
+		width: 100px;
+		height: 30px;
+		margin-right: 0px;
+		text-align: center;
+		line-height: 29px;
+	}
+	</style>
+	</head>
+	<body>
+		<table align="center" style="border:0; padding:0;">
+			<tr>
+				<td>
+					<div id="menu" style="border:4px solid #2D2D2D">
+						<ul>
+							<li><a href="provider_set.htm" class="separator">代碼資料管理</a></li>
+							<li><a href="vender_info.htm" class="separator">廠商資料管理</a></li>
+							<li><a href="#" class="separator">採購資料管理</a>
+								<ul>
+									<li><a href="#">採購單設定</a></li>
+									<li><a href="#">採購產品細項資料</a></li>
+									<li><a href="#">未完成單據一覽表</a></li>
+								</ul> 
+							</li>
+							<li><a href="#" class="separator">進貨資料管理</a>
+								<ul>
+									<li><a href="#">產生進貨單</a></li>
+									<li><a href="#">進貨單據一覽表</a></li>
+									<li><a href="#">進貨退回</a></li>
+								</ul> 
+							</li>
+							<li><a href="#" class="separator">庫存管理</a>
+								<ul>
+									<li><a href="products_info.htm">產品資料設定</a></li>
+									<li><a href="products_sale.htm">產品上架</a></li>
+									<li><a href="products_warning.htm">庫存警示 / 調整</a></li>
+								</ul> 
+							</li>
+							<li><a href="#">訂單管理</a></li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td style="background-color:#EFEFEF; vertical-align:top;">
+					<table style="width:100%; padding: 5px;">
+						<tr>
+							<td><div id="itemDesc" style="width:100%; height:32px; background-color:#AAAAAA;"><img src="images/image.png" style="width:35px; height:35px; margin-top:-3px; vertical-align:middle;" /><font size="3" color="#0066CC">代碼資料管理</font></div></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<div id="codeTabs" style="width:500px; height:400px; padding:10px; margin:0;">
+									<ul class="ui-widget-header ui-priority-secondary">
+										<li class="ui-widget-content ui-state-default"><a href="provider_set.htm">廠商代碼</a></li>
+										<li class="ui-widget-content ui-state-active"><a href="product_set.htm">產品代碼</a></li>
+										<li class="ui-widget-content ui-state-default"><a href="order_set.htm">訂單狀態代碼</a></li>
+									</ul>
+									<div id="set1" class="tab_content">
+										<table id="productTB">
+											<thead>
+												<tr>
+													<th>&nbsp;</th>
+													<th name="id" class="noedit">ID</th>
+													<th name="codeName" class="add">Name</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>		
+		</table>
+	</body>
+</html>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#menu").corner("dog tr").corner("5px");
+		$("#content").corner("wicked 20px");
+		$("#itemDesc").corner("5px");
+		
+		$("table#productTB").tablegrid({ LOADDATA_PAGE: "product_set.php" });
+	});
+	
+	function beforeInsertTable(msg) {
+		alert(msg);
+	}
+
+	function insertTable() {
+		alert("資料已送出!");
+	}
+	
+	function beforeSave(msg) {
+		alert(msg);
+	}
+	
+	function showInfo(msg) {
+		alert(msg);
+	}
+</script>

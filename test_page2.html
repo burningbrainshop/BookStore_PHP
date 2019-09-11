@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+	<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery-ui-1.10.2.custom.min.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery.simplegrid.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery.ui.datepicker-zh-TW.js"></script>
+	<link rel="stylesheet" href="jQuery/themes/pepper-grinder/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/managerMenu.css" />
+	<title></title>
+	<style>
+	table#list {
+		width: 680px;
+		border-collapse: collapse;
+		padding: 3px;
+	}
+	
+	div.ui-datepicker-header {
+      font-size: 12px;
+      font-family: georgia;
+    }
+    table.ui-datepicker-calendar {
+      font-size: 12px;
+      font-family: georgia;
+      font-style: italic;
+    }
+    div.ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+      width: 200px;
+	  height: 200px;
+    }
+	
+	table#searchTheme {
+		width: 680px;
+		border-collapse: collapse;
+		padding: 5px;
+		border: 1px solid #AAAAAA;
+		background-color: #CCCCCC;
+		margin-bottom: 10px;
+	}
+	table#searchTheme td {
+		padding: 5px;
+		text-align: left;
+	}
+
+	</style>
+	<body>
+		<table align="center" style="border:0; padding:0;">
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td style="background-color:#EFEFEF; vertical-align:top;">
+					<table style="width:100%; padding: 5px;">
+						<tr>
+							<td><div id="itemDesc" style="width:100%; height:32px; background-color:#AAAAAA;"><img src="images/equalizer.png" style="width:35px; height:35px; margin-top:-3px; vertical-align:middle;" /><font size="3" color="#0066CC">庫存管理 > 產品資料設定</font></div></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td align="center">
+									<div id="search">
+										<table id="searchTheme">
+											<tr>
+												<td>
+													<input type="text" id="dateTxt" />&nbsp;<button id="calendar" style="width: 20px; height: 20px;vertical-align: top;"></button>
+    <div id="date"></div>
+												</td>
+											</tr>
+										</table>
+									</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>		
+		</table>
+	</body>
+</html>
+<script>
+$(document).ready(function() {
+	var date = $("#date").datepicker({
+      dateFormat: "yy-mm-dd",
+      //----週六與週日不允許選取----------------
+      beforeShowDay: function(date) {
+        var dayOfWeek = date.getDay();
+        if(dayOfWeek == 0 || dayOfWeek == 6)
+          return [false, "", "Lay off"];
+        else
+          return [true];
+      },
+      onSelect: function(dateText) {
+        $("#dateTxt").val(dateText);
+        $(this).toggle();  //輸入完成後,自動關閉日曆
+      }
+    });
+   
+    $(date).hide();
+
+    $("#calendar")
+      .button({
+        text: false,
+        icons: {
+          primary: "ui-icon-calendar"
+        }
+      })
+      .click(function(event) {
+        var pos = $("#calendar").position();
+        //----日曆顯示的地方在按鈕下方,且左側對齊-----------------------------
+        $(date).css({
+          position: "absolute",
+          top: (pos.top + 20),
+          left: pos.left
+        });
+		
+		$(date).toggle();
+	});
+});
+</script>

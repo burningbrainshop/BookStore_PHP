@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="pragma" content="no-cache"> 
+	<script type="text/javascript" src="jQuery/js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery-ui-1.10.2.custom.min.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery.corner.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery.warngrid.js"></script>
+	<script type="text/javascript" src="jQuery/js/jquery.ui.datepicker-zh-TW.js"></script>
+	<link rel="stylesheet" href="jQuery/themes/black-tie/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/managerMenu.css" />
+	<title></title>
+	<style>
+	table#list {
+		width: 680px;
+		border-collapse: collapse;
+		padding: 3px;
+	}
+	table#list tr:hover {
+		background-color: #354158;
+		color: #fff;
+	}
+	table#list th {
+		text-align: center;
+		padding: 5px;
+		border: 1px solid #CCCCCC;
+	}
+	table#list td {
+		text-align: left;
+		padding: 5px;
+		border: 1px solid #CCCCCC;
+	}
+	table#list a {
+		text-decoration: none;
+	}
+	table#list tr:hover a {
+		color: #fff;
+	}
+	table#list tr:hover a:hover {
+		color: #fff;
+		text-decoration: underline;
+	}
+	table#list td#btnList a.pageItems {
+		width: 20px;
+		height: 20px;
+		padding: 3px;
+		margin-right: 3px;
+		margin-left: 3px;
+		color: #eee;
+		line-height: 15px;
+		text-decoration: none;
+		background-color: #000;
+		border: 1px solid #DDDDDD;
+	}
+	table#list td#btnList a.pageItems:hover,
+	table#list td#btnList a.pageItems.active {
+		color: #000;
+		background-color: #fff;
+		line-height: 15px;
+		text-decoration: none;
+		border: 1px solid #DDDDDD;
+	}
+	
+	div#dialog input, div#dialog select { margin-bottom: 5px; }
+	div#dialog .validateTips { width: 340px; border: 1px solid transparent; padding: 0.3em; text-align: center; }
+	div#dialog fieldset { padding: 5px; }
+	
+	table#searchTheme {
+		width: 680px;
+		border-collapse: collapse;
+		padding: 5px;
+		background-color: #DDDDDD;
+		margin-bottom: 10px;
+	}
+	table#searchTheme td {
+		padding: 5px;
+		text-align: left;
+	}
+	
+	div#date.ui-datepicker-header {
+      font-size: 12px;
+      font-family: georgia;
+    }
+    table.ui-datepicker-calendar {
+      font-size: 12px;
+      font-family: georgia;
+      font-style: italic;
+    }
+    div#date.ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+      width: 100px;
+    }
+	
+	.grid-icon { background-image: url(jQuery/themes/start/images/ui-icons_f7a50d_256x240.png); }
+    .arrowNone {
+		display: block;
+		float: right;
+        width: 15px;
+        height: 15px;
+        background-position: -128px -16px;
+    }
+    .arrowDown {
+		display: block;
+		float: right;
+		width: 15px;
+		height: 15px;
+		background-position: -64px -16px;
+    }
+    .arrowUp {
+		display: block;
+		float: right;
+        width: 15px;
+        height: 15px;
+        background-position: 0 -16px;
+    }
+	.detail-icon { background-image: url(jQuery/themes/start/images/ui-icons_0078ae_256x240.png); }
+	.detailClose {
+		display: block;
+		float: right;
+		width: 15px;
+		height: 15px;
+		margin-right: 20px;
+		margin-top: -2px;
+		background-image: url(jQuery/themes/start/images/ui-icons_0078ae_256x240.png);
+		background-position: -160px -192px;
+	}
+	</style>
+	<body>
+		<table align="center" style="border:0; padding:0;">
+			<tr>
+				<td>
+					<div id="menu" style="border:4px solid #2D2D2D">
+						<ul>
+							<li><a href="provider_set.htm" class="separator">代碼資料管理</a></li>
+							<li><a href="vender_info.htm" class="separator">廠商資料管理</a></li>
+							<li><a href="#" class="separator">採購資料管理</a>
+								<ul>
+									<li><a href="#">採購單設定</a></li>
+									<li><a href="#">採購產品細項資料</a></li>
+									<li><a href="#">未完成單據一覽表</a></li>
+								</ul> 
+							</li>
+							<li><a href="#" class="separator">進貨資料管理</a>
+								<ul>
+									<li><a href="#">產生進貨單</a></li>
+									<li><a href="#">進貨單據一覽表</a></li>
+									<li><a href="#">進貨退回</a></li>
+								</ul> 
+							</li>
+							<li><a href="#" class="separator">庫存管理</a>
+								<ul>
+									<li><a href="products_info.htm">產品資料設定</a></li>
+									<li><a href="products_sale.htm">產品上 / 下架</a></li>
+									<li><a href="products_warning.htm">庫存警示 / 調整</a></li>
+								</ul> 
+							</li>
+							<li><a href="#">訂單管理</a></li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td style="background-color:#EFEFEF; vertical-align:top;">
+					<table style="width:100%; padding: 5px;">
+						<tr>
+							<td><div id="itemDesc" style="width:100%; height:32px; background-color:#AAAAAA;"><img src="images/equalizer.png" style="width:35px; height:35px; margin-top:-3px; vertical-align:middle;" /><font size="3" color="#0066CC">庫存管理 > 庫存警示 / 調整</font></div></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td align="center">
+									<div id="search">
+										<table id="searchTheme">
+											<tr>
+												<td>搜尋期間：<input type="text" id="startDate" disabled="true" /><button id="calendarS" style="width: 22px; height: 22px;vertical-align: middle;"></button><div id="dateS" style='z-index:98;'></div> － <input type="text" id="endDate" disabled="true" /><button id="calendarE" style="width:22px; height:22px; vertical-align:middle;"></button><div id="dateE" style='z-index:99;'></div>　<input type="button" id="searchBtn" value="確定" /><input type="button" id="resetBtn" value="重設" /></td>
+											</tr>
+										</table>
+									</div>
+									<div id="main">
+										<table id="list" class="ui-widget ui-widget-content">
+											<thead>
+												<!-- 必須設定th name="pID",此是JSON資料內的key值,用於搜尋 / 排序功能, class值是指定排序時,此欄位的資料是否為數字,否則以字串排列 -->
+												<tr class="ui-widget-header">
+													<th>&nbsp;</th>
+													<th name="prod_no" class="number" nowrap>編號</th>
+													<th name="prod_name" nowrap>產品名稱</th>
+													<th name="prod_cname" nowrap>產品類別</th>
+													<th name="vend_name" nowrap>供應商</th>
+													<th name="prod_save" nowrap>庫存不足</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<br />
+									<div>
+									<table style="width: 680px; border:0;"><tr><td style="text-align:left;"><font color="#0066CC">庫存不足：表示 [現有庫存] 小於 [安全存量] <br />預設值：不輸入任何日期，按下確定，只顯示最近 [三個月] 的資料。</font></td></tr></table>
+									</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>		
+		</table>
+		<div id="dialog" title="更改庫存數量" style="display:none;">
+			<p class="validateTips">欄位後方有(*)者必須輸入資料</p>
+			<form>
+				<fieldset>
+					<legend style="color: #6666FF;">Details</legend>
+					<label for="prodname">產品名稱:</label>
+					<span id="prodname"></span><br />
+					<label for="Iqty">期初庫存:</label>
+					<input type="text" name="Iqty" id="Iqty" style="width:30px;" /> (*)<br />
+					<label for="Nqty">現有庫存:</label>
+					<input type="text" name="Nqty" id="Nqty" style="width:30px;" /> (*)<br />
+				</fieldset>
+			</form>
+		</div>
+	</body>
+</html>
+<script>
+$(document).ready(function() {
+	$("#menu").corner("dog tr").corner("5px");
+	$("#content").corner("wicked 20px");
+	$("#itemDesc").corner("5px");
+	
+	$("input#searchBtn").button();
+	
+	$("#startDate").val("");
+	$("#endDate").val("");
+	
+	var dateS = $("#dateS").datepicker({
+		dateFormat: "yy-mm-dd",
+		onSelect: function(dateText) {
+			$("#startDate").val(dateText);
+			$(this).toggle();
+		}
+	}).datepicker("setDate", "-3m");
+	
+	$(dateS).hide();
+	
+	$("#calendarS").button({
+		text: false,
+		icons: {
+			primary: "ui-icon-calendar"
+		}
+	}).click(function(event) {
+		var pos = $("#calendarS").position();
+		
+		$(dateS).css({
+			position: "absolute",
+			top: pos.top + 20,
+			left: pos.left
+		});
+		
+		$(dateS).toggle();
+	});
+	
+	var dateE = $("#dateE").datepicker({
+		dateFormat: "yy-mm-dd",
+		onSelect: function(dateText) {
+			$("#endDate").val(dateText);
+			$(this).toggle();
+		}
+	});
+	
+	$(dateE).hide();
+	
+	$("#calendarE").button({
+		text: false,
+		icons: {
+			primary: "ui-icon-calendar"
+		}
+	}).click(function(event) {
+		var pos = $("#calendarE").position();
+		
+		$(dateE).css({
+			position: "absolute",
+			top: pos.top + 20,
+			left: pos.left
+		});
+		
+		$(dateE).toggle();
+	});
+	
+
+	$("table#newTB input#newBtn").button();
+	$("#resetBtn").button().click(function(event) {
+		event.preventDefault();
+		$("#startDate").val("");
+		$("#endDate").val("");
+	});
+	
+	//---------------------------------------------------------------------
+	$("#searchBtn").click(function(event) {
+		event.preventDefault();
+		
+		var sDate = $("#startDate").val(), eDate = $("#endDate").val();
+		
+		$("table#list").saleupgrid({ 
+			loaddata_page: "products_info.php", 
+			sDate: sDate, 
+			eDate: eDate 
+		});
+	});
+	
+});
+</script>

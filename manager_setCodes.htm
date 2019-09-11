@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="pragma" content="no-cache"> 
+  <script type="text/javascript" src="jQuery/js/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="jQuery/js/jquery-ui-1.10.2.custom.min.js"></script>
+  <script type="text/javascript" src="jQuery/js/jquery.corner.js"></script>
+  <script type="text/javascript" src="jQuery/js/jquery.tablegrid.js"></script>
+  <link rel="stylesheet" href="jQuery/themes/start/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="css/managerMenu.css" />
+  <title></title>
+  <style>
+	table#providerTB {
+		border-collapse: collapse;
+		width: 100%;
+		padding: 0;
+	}
+	table#providerTB th, table#providerTB td {
+		border: 1px solid #AAAAAA;
+		padding: 3px;
+	}
+	table#providerTB thead {
+		background-color: #D1DADE;
+		color: #003366;
+	}
+	table#providerTB td.cell-edit {
+		background-color: #003366;
+	}
+	table#providerTB tbody tr:hover {
+		background-color: #D3E5ED;
+	}
+	
+	table#productTB {
+		border-collapse: collapse;
+		width: 100%;
+		padding: 0;
+	}
+	table#productTB th, table#productTB td {
+		border: 1px solid #AAAAAA;
+		padding: 3px;
+	}
+	table#productTB thead {
+		background-color: #D1DADE;
+		color: #003366;
+	}
+	table#productTB td.cell-edit {
+		background-color: #003366;
+	}
+	table#productTB tbody tr:hover {
+		background-color: #D3E5ED;
+	}
+	
+	table#orderTB {
+		border-collapse: collapse;
+		width: 100%;
+		padding: 0;
+	}
+	table#orderTB th, table#codeTB td {
+		border: 1px solid #AAAAAA;
+		padding: 3px;
+	}
+	table#orderTB thead {
+		background-color: #D1DADE;
+		color: #003366;
+	}
+	table#orderTB td.cell-edit {
+		background-color: #003366;
+	}
+	table#orderTB tbody tr:hover {
+		background-color: #D3E5ED;
+	}
+  </style>
+  </head>
+  <body>
+	<table align="center" style="border:0; padding:0;">
+		<tr>
+			<td>
+				<div id="menu" style="border:4px solid #2D2D2D">
+					<ul>
+						<li><a href="manager_setCodes.htm" class="separator">代碼資料管理</a></li>
+						<li><a href="#" class="separator">廠商資料管理</a></li>
+						<li><a href="#" class="separator">採購資料管理</a>
+							<ul>
+								<li><a href="#">採購單設定</a></li>
+								<li><a href="#">採購產品細項資料</a></li>
+								<li><a href="#">未完成單據一覽表</a></li>
+							</ul> 
+						</li>
+						<li><a href="#" class="separator">進貨資料管理</a>
+							<ul>
+								<li><a href="#">產生進貨單</a></li>
+								<li><a href="#">進貨單據一覽表</a></li>
+								<li><a href="#">進貨退回</a></li>
+							</ul> 
+						</li>
+						<li><a href="#" class="separator">庫存管理</a>
+							<ul>
+								<li><a href="#">產品資料設定</a></li>
+								<li><a href="#">產品上架</a></li>
+								<li><a href="#">庫存警示 / 調整</a></li>
+							</ul> 
+						</li>
+						<li><a href="#">訂單管理</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td style="background-color:#EFEFEF; vertical-align:top;">
+				<table style="width:100%; padding: 5px;">
+					<tr>
+						<td><div id="itemDesc" style="width:100%; height:32px; background-color:#AAAAAA;"><img src="images/image.png" style="width:35px; height:35px; margin-top:-3px; vertical-align:middle;" /><font size="3" color="#0066CC">代碼資料管理</font></div></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td align="center">
+							<div id="tabContainer" style="width:500px; height:380px; padding:0;">
+								<div id="codeTabs" style="width:500px; height:350px; padding:0; margin:0;">
+									<ul>
+										<li><a href="#set1">廠商代碼</a></li>
+										<li><a href="#set1">產品代碼</a></li>
+										<li><a href="#set1">訂單狀態代碼</a></li>
+									</ul>
+									<div id=set1>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>		
+	</table>
+  </body>
+  </html>
+  <script>
+	$(document).ready(function() {
+		$("div#tb").hide();
+		var $tbCopy = $("div#tb").clone();
+		$("table#tb").remove();
+		
+		$("#menu").corner("dog tr").corner("5px");
+		$("#content").corner("wicked 20px");
+		$("#itemDesc").corner("5px");
+		
+		$("#codeTabs").tabs();
+		
+		$("div#set1").empty();
+		$.get("order_set.htm", function(data) { $("div#set1").html(data); });
+		$("table#orderTB").tablegrid({ LOADDATA_PAGE: "order_set.php" });
+
+		$("#codeTabs").find("ul > li").click(function() {
+			var index = $(this).index();
+			if(index == 0)
+			{
+				$("div#set1").empty().append($tbCopy);
+				$.get("provider_set.htm", function(data) { $("div#set1").html(data); });
+				$("table#providerTB").tablegrid({ LOADDATA_PAGE: "provider_set.php" });
+			}
+			
+			if(index == 1)
+			{
+				$("div#set1").empty();
+				$.get("product_set.htm", function(data) { $("div#set1").html(data); });
+				$("table#productTB").tablegrid({ LOADDATA_PAGE: "product_set.php" });
+			}
+				
+			if(index == 2)
+			{
+				$("div#set1").empty();
+				$.get("order_set.htm", function(data) { $("div#set1").html(data); });
+				$("table#orderTB").tablegrid({ LOADDATA_PAGE: "order_set.php" });
+			}
+		});
+		//alert($("div#set1").html());
+	});
+	
+	function beforeInsertTable(msg) {
+		alert(msg);
+	}
+
+	function insertTable() {
+		alert("資料已送出!");
+	}
+	
+	function beforeSave(msg) {
+		alert(msg);
+	}
+	
+	function showInfo(msg) {
+		alert(msg);
+	}
+  </script>

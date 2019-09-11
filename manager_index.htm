@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <script type="text/javascript" src="jQuery/js/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="jQuery/js/jquery-ui-1.10.2.custom.js"></script>
+  <script type="text/javascript" src="jQuery/js/jquery.corner.js"></script>
+  <link rel="stylesheet" href="jQuery/themes/start/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" href="css/managerMenu.css" />
+  <title></title>
+  <style>
+  </style>
+  </head>
+  <body>
+	<table align="center" style="border:0; padding:0;">
+		<tr>
+			<td>
+				<div id="menu" style="border:4px solid #2D2D2D">
+					<ul>
+						<li><a href="provider_set.htm" class="separator">代碼資料管理</a></li>
+						<li><a href="vender_info.htm" class="separator">廠商資料管理</a></li>
+						<li><a href="#" class="separator">採購資料管理</a>
+							<ul>
+								<li><a href="purchase_info.htm">採購單設定</a></li>
+								<li><a href="#">採購產品細項資料</a></li>
+								<li><a href="#">未完成單據一覽表</a></li>
+							</ul> 
+						</li>
+						<li><a href="#" class="separator">進貨資料管理</a>
+							<ul>
+								<li><a href="#">產生進貨單</a></li>
+								<li><a href="#">進貨單據一覽表</a></li>
+								<li><a href="#">進貨退回</a></li>
+							</ul> 
+						</li>
+						<li><a href="#" class="separator">庫存管理</a>
+							<ul>
+								<li><a href="products_info.htm">產品資料設定</a></li>
+								<li><a href="products_sale.htm">產品上架</a></li>
+								<li><a href="products_warning.htm">庫存警示 / 調整</a></li>
+							</ul> 
+						</li>
+						<li><a href="#">訂單管理</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<div id="content" style=" height:150px; width:400px; background-color:#DDD; padding:10px; text-align:left;">
+					<br />Dear 管理者:<br /><br />歡迎進入 [ 網路書店 ] 後端管理平台。請至上方選單選擇作業項目。
+				</div>
+			</td>
+		</tr>
+	</table>
+  </body>
+  </html>
+  <script>
+	$(document).ready(function() {
+		$("#menu").corner("dog tr").corner("5px");
+		$("#content").corner("wicked 20px");
+	});
+  </script>
